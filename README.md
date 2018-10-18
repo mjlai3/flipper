@@ -1,2 +1,0 @@
-# flipper
-Created with CodeSandbox
