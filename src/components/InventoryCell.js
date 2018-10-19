@@ -17,13 +17,12 @@ class InventoryCell extends React.PureComponent {
 const size = '2em';
 
 const Cell = styled.div`
-    display: inline-block;
     height: ${size};
     width: ${size};
     border: 1px solid black;
-
+    
     & + & {
-        border-left: 0;
+      margin-top: -1px;
     }
 `;
 
