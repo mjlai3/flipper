@@ -7,18 +7,22 @@ class Inventory extends React.PureComponent {
     super();
     this.state = {
       rows: 5,
-      columns: 12
+      columns: 12,
+      stackSize: 10,
+      number: 50
     };
   }
 
-  generatoeInventory() {
-    return this.foo().map(item => <RowContainer>{item}</RowContainer>);
+  divideInventory() {
+    return this.generateInventory().map(item => (
+      <ColumnContainer>{item}</ColumnContainer>
+    ));
   }
 
-  foo() {
+  generateInventory() {
     const bar = [];
-    for (let i = 0; i < this.state.rows; i++) {
-      bar.push(this.generateRow());
+    for (let i = 0; i < this.state.columns; i++) {
+      bar.push(this.generateColumn());
     }
     return bar;
   }
@@ -31,14 +35,31 @@ class Inventory extends React.PureComponent {
     return row;
   }
 
+  generateColumn() {
+    const column = [];
+    for (let i = 0; i < this.state.rows; i++) {
+      column.push(<InventoryCell />);
+    }
+    return column;
+  }
+
   render() {
-    return <>{this.generatoeInventory()}</>;
+    return (
+      <Container style={{ display: 'flex' }}>
+        {this.divideInventory()}
+      </Container>
+    );
   }
 }
 
-const RowContainer = styled.div`
-  line-height: 0;
-  margin-top: -1px;
+const ColumnContainer = styled.div`
+  & + & {
+    margin-left: -1px;
+  }
+`;
+
+const Container = styled.div`
+  display: flex;
 `;
 
 export default Inventory;
