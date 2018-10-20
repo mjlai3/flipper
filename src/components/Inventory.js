@@ -60,6 +60,14 @@ class Inventory extends React.PureComponent {
     return column;
   }
 
+  generateColumn() {
+    const column = [];
+    for (let i = 0; i < this.state.rows; i++) {
+      column.push(<InventoryCell />);
+    }
+    return column;
+  }
+
   render() {
     return (
       <Container style={{ display: 'flex' }}>
