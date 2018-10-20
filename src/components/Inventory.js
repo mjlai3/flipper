@@ -1,6 +1,7 @@
 import React from 'react';
 import InventoryCell from './InventoryCell';
 import styled from 'styled-components';
+import assign from 'lodash.assign';
 
 class Inventory extends React.PureComponent {
   constructor() {
@@ -9,8 +10,22 @@ class Inventory extends React.PureComponent {
       rows: 5,
       columns: 12,
       stackSize: 10,
-      number: 50
+      number: 50,
+      lockedCells: []
     };
+  }
+
+  onCellClick(row, column) {
+    this.setState(
+      (prevState, props) => {
+        const newLockedCells = prevState.lockedCells.slice();
+        newLockedCells.push({ row, column });
+        return {
+          lockedCells: newLockedCells
+        };
+      },
+      () => console.log(this.state.lockedCells)
+    );
   }
 
   divideInventory() {
@@ -20,19 +35,29 @@ class Inventory extends React.PureComponent {
   }
 
   generateInventory() {
-    const bar = [];
-    for (let i = 0; i < this.state.columns; i++) {
-      bar.push(this.generateColumn());
+    const inventory = [];
+    for (
+      let columnNumber = 1;
+      columnNumber <= this.state.columns;
+      columnNumber++
+    ) {
+      inventory.push(this.generateColumn(columnNumber));
     }
-    return bar;
+    return inventory;
   }
 
-  generateRow() {
-    const row = [];
-    for (let i = 0; i < this.state.columns; i++) {
-      row.push(<InventoryCell />);
+  generateColumn(columnNumber) {
+    const column = [];
+    for (let rowNumber = 1; rowNumber <= this.state.rows; rowNumber++) {
+      column.push(
+        <InventoryCell
+          onCellClick={(row, column) => this.onCellClick(row, column)}
+          row={rowNumber}
+          column={columnNumber}
+        />
+      );
     }
-    return row;
+    return column;
   }
 
   generateColumn() {
