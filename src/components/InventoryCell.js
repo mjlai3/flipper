@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 class InventoryCell extends React.PureComponent {
   constructor() {
@@ -10,20 +10,25 @@ class InventoryCell extends React.PureComponent {
   }
 
   render() {
-    return <Cell />;
+    return (
+      <Cell
+        onClick={() =>
+          this.props.onCellClick(this.props.row, this.props.column)
+        }
+      />
+    );
   }
 }
 
-const size = '2em';
+const size = "2em";
 
 const Cell = styled.div`
-    display: inline-block;
     height: ${size};
     width: ${size};
     border: 1px solid black;
-
+    
     & + & {
-        border-left: 0;
+      margin-top: -1px;
     }
 `;
 
