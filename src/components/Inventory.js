@@ -29,7 +29,7 @@ class Inventory extends React.PureComponent {
   }
 
   divideInventory() {
-    return this.generateInventory().map(item => (
+    return this.generateInventory().map((item, index) => (
       <ColumnContainer key={index}>{item}</ColumnContainer>
     ));
   }
