@@ -30,7 +30,7 @@ class Inventory extends React.PureComponent {
 
   divideInventory() {
     return this.generateInventory().map(item => (
-      <ColumnContainer>{item}</ColumnContainer>
+      <ColumnContainer key={index}>{item}</ColumnContainer>
     ));
   }
 
@@ -51,6 +51,7 @@ class Inventory extends React.PureComponent {
     for (let rowNumber = 1; rowNumber <= this.state.rows; rowNumber++) {
       column.push(
         <InventoryCell
+          key={`${rowNumber}-${columnNumber}`}
           onCellClick={(row, column) => this.onCellClick(row, column)}
           row={rowNumber}
           column={columnNumber}
