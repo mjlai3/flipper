@@ -17,28 +17,20 @@ class Inventory extends React.PureComponent {
   }
 
   onCellClick(row, column) {
-    const lockedCellIndex = findIndex(this.state.lockedCells, {
-      row: row,
-      column: column
-    });
-    const newLockedCells = this.state.lockedCells.slice();
-    // console.log({ lockedCellIndex });
-    // console.log('current lockedCells: ' + this.state.lockedCells);
-    // console.log({ newLockedCells });
-
-    if (lockedCellIndex > -1) {
-      newLockedCells.splice(lockedCellIndex, 1);
-      console.log('newLockedCells: ' + newLockedCells);
-      this.setState({
-        lockedCell: newLockedCells
-      });
-      return;
-    }
-
     this.setState(
       (prevState, props) => {
         const newLockedCells = prevState.lockedCells.slice();
-        newLockedCells.push({ row, column });
+        const lockedCellIndex = findIndex(prevState.lockedCells, {
+          row: row,
+          column: column
+        });
+
+        if (lockedCellIndex > -1) {
+          newLockedCells.splice(lockedCellIndex, 1);
+        } else {
+          newLockedCells.push({ row, column });
+        }
+
         return {
           lockedCells: newLockedCells
         };
