@@ -11,7 +11,7 @@ class Inventory extends React.PureComponent {
       rows: 5,
       columns: 12,
       stackSize: 10,
-      amount: 0,
+      amount: 75,
       lockedCells: []
     };
   }
@@ -66,10 +66,32 @@ class Inventory extends React.PureComponent {
           onCellClick={(row, column) => this.onCellClick(row, column)}
           row={rowNumber}
           column={columnNumber}
+          locked={this.isLockedCell(rowNumber, columnNumber)}
+          stackSize={this.getCellStackSize(rowNumber, columnNumber)}
         />
       );
     }
     return column;
+  }
+
+  getCellStackSize(row, column) {
+    const { stackSize, amount } = this.state;
+    if (row * column * stackSize + (column - 1) * 5 * stackSize <= amount) {
+      return stackSize;
+    }
+    if (amount % stackSize > 0) {
+      return amount % stackSize;
+    }
+    return 0;
+  }
+
+  isLockedCell(row, column) {
+    return (
+      findIndex(this.state.lockedCells, {
+        row: row,
+        column: column
+      }) > -1
+    );
   }
 
   onAmountChange(event) {
