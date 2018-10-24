@@ -1,7 +1,6 @@
 import React from 'react';
 import InventoryCell from './InventoryCell';
 import styled from 'styled-components';
-import find from 'lodash.find';
 import findIndex from 'lodash.findindex';
 
 class Inventory extends React.PureComponent {
@@ -9,34 +8,8 @@ class Inventory extends React.PureComponent {
     super();
     this.state = {
       rows: 5,
-      columns: 12,
-      stackSize: 10,
-      amount: 75,
-      lockedCells: []
+      columns: 12
     };
-  }
-
-  onCellClick(row, column) {
-    this.setState(
-      (prevState, props) => {
-        const newLockedCells = prevState.lockedCells.slice();
-        const lockedCellIndex = findIndex(prevState.lockedCells, {
-          row: row,
-          column: column
-        });
-
-        if (lockedCellIndex > -1) {
-          newLockedCells.splice(lockedCellIndex, 1);
-        } else {
-          newLockedCells.push({ row, column });
-        }
-
-        return {
-          lockedCells: newLockedCells
-        };
-      },
-      () => console.log(this.state.lockedCells)
-    );
   }
 
   divideInventory() {
@@ -63,7 +36,7 @@ class Inventory extends React.PureComponent {
       column.push(
         <InventoryCell
           key={`${rowNumber}-${columnNumber}`}
-          onCellClick={(row, column) => this.onCellClick(row, column)}
+          onCellClick={this.props.onCellClick}
           row={rowNumber}
           column={columnNumber}
           locked={this.isLockedCell(rowNumber, columnNumber)}
@@ -75,7 +48,7 @@ class Inventory extends React.PureComponent {
   }
 
   getCellStackSize(row, column) {
-    const { stackSize, amount } = this.state;
+    const { stackSize, amount } = this.props;
     if (row * stackSize + (column - 1) * stackSize * 5 <= amount) {
       return stackSize;
     }
@@ -87,19 +60,10 @@ class Inventory extends React.PureComponent {
 
   isLockedCell(row, column) {
     return (
-      findIndex(this.state.lockedCells, {
+      findIndex(this.props.lockedCells, {
         row: row,
         column: column
       }) > -1
-    );
-  }
-
-  onAmountChange(event) {
-    this.setState(
-      {
-        amount: event.target.value
-      },
-      () => console.log('amount: ' + this.state.amount)
     );
   }
 
@@ -109,11 +73,6 @@ class Inventory extends React.PureComponent {
         <InventoryContainer style={{ display: 'flex' }}>
           {this.divideInventory()}
         </InventoryContainer>
-        <AmountInput
-          type="number"
-          value={this.state.amount}
-          onChange={event => this.onAmountChange(event)}
-        />
       </>
     );
   }
@@ -127,10 +86,6 @@ const ColumnContainer = styled.div`
 
 const InventoryContainer = styled.div`
   display: flex;
-`;
-
-const AmountInput = styled.input`
-  
 `;
 
 export default Inventory;
