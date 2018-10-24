@@ -79,7 +79,7 @@ class Inventory extends React.PureComponent {
     if (row * stackSize + (column - 1) * stackSize * 5 <= amount) {
       return stackSize;
     }
-    if (amount % stackSize > 0) {
+    if (row * stackSize + (column - 1) * stackSize * 5 - amount < stackSize) {
       return amount % stackSize;
     }
     return 0;

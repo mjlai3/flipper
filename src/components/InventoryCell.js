@@ -9,6 +9,13 @@ class InventoryCell extends React.PureComponent {
     };
   }
 
+  generateNumber() {
+    const { stackSize } = this.props;
+    if (stackSize) {
+      return <Number>{stackSize}</Number>;
+    }
+  }
+
   render() {
     return (
       <Cell
@@ -16,7 +23,7 @@ class InventoryCell extends React.PureComponent {
           this.props.onCellClick(this.props.row, this.props.column)
         }
       >
-        <Number>{this.props.stackSize}</Number>
+        {this.generateNumber()}
       </Cell>
     );
   }
