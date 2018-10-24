@@ -76,7 +76,7 @@ class Inventory extends React.PureComponent {
 
   getCellStackSize(row, column) {
     const { stackSize, amount } = this.state;
-    if (row * column * stackSize + (column - 1) * 5 * stackSize <= amount) {
+    if (row * stackSize + (column - 1) * stackSize * 5 <= amount) {
       return stackSize;
     }
     if (amount % stackSize > 0) {
