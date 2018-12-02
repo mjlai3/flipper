@@ -18,11 +18,7 @@ class InventoryCell extends React.PureComponent {
 
   render() {
     return (
-      <Cell
-        onClick={() =>
-          this.props.onCellClick(this.props.row, this.props.column)
-        }
-      >
+      <Cell onClick={() => this.props.onCellClick(this.props.cellNumber)}>
         {this.generateNumber()}
       </Cell>
     );
@@ -39,8 +35,12 @@ const Cell = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
-  
-  & + & {
+
+  &:nth-child(n + 6) {
+    margin-left: -1px;
+  }
+
+  &:not(:nth-child(5n + 1)) {
     margin-top: -1px;
   }
 `;

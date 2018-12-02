@@ -1,91 +1,76 @@
 import React from 'react';
 import InventoryCell from './InventoryCell';
 import styled from 'styled-components';
-import findIndex from 'lodash.findindex';
+import lodash from 'lodash';
 
 class Inventory extends React.PureComponent {
   constructor() {
     super();
     this.state = {
-      rows: 5,
-      columns: 12
+      inventorySize: 60
     };
   }
 
-  divideInventory() {
-    return this.generateInventory().map((item, index) => (
-      <ColumnContainer key={index}>{item}</ColumnContainer>
-    ));
-  }
-
   generateInventory() {
-    const inventory = [];
+    let inventory = [];
+    let amount = this.props.amount;
+    let stackSize = this.props.stackSize;
     for (
-      let columnNumber = 1;
-      columnNumber <= this.state.columns;
-      columnNumber++
+      let cellNumber = 1;
+      cellNumber < this.state.inventorySize + 1;
+      cellNumber++
     ) {
-      inventory.push(this.generateColumn(columnNumber));
+      if (amount - stackSize > 0) {
+        inventory.push(
+          <InventoryCell
+            key={cellNumber}
+            cellNumber={cellNumber}
+            onCellClick={this.props.onCellClick}
+            stackSize={stackSize}
+          />
+        );
+        amount = amount - stackSize;
+      } else if (amount > 0) {
+        inventory.push(
+          <InventoryCell
+            key={cellNumber}
+            cellNumber={cellNumber}
+            onCellClick={this.props.onCellClick}
+            stackSize={amount}
+          />
+        );
+        amount = amount - stackSize;
+      } else {
+        inventory.push(
+          <InventoryCell
+            key={cellNumber}
+            cellNumber={cellNumber}
+            onCellClick={this.props.onCellClick}
+            stackSize={0}
+          />
+        );
+      }
     }
     return inventory;
-  }
-
-  generateColumn(columnNumber) {
-    const column = [];
-    for (let rowNumber = 1; rowNumber <= this.state.rows; rowNumber++) {
-      column.push(
-        <InventoryCell
-          key={`${rowNumber}-${columnNumber}`}
-          onCellClick={this.props.onCellClick}
-          row={rowNumber}
-          column={columnNumber}
-          locked={this.isLockedCell(rowNumber, columnNumber)}
-          stackSize={this.getCellStackSize(rowNumber, columnNumber)}
-        />
-      );
-    }
-    return column;
-  }
-
-  getCellStackSize(row, column) {
-    const { stackSize, amount } = this.props;
-    if (row * stackSize + (column - 1) * stackSize * 5 <= amount) {
-      return stackSize;
-    }
-    if (row * stackSize + (column - 1) * stackSize * 5 - amount < stackSize) {
-      return amount % stackSize;
-    }
-    return 0;
-  }
-
-  isLockedCell(row, column) {
-    return (
-      findIndex(this.props.lockedCells, {
-        row: row,
-        column: column
-      }) > -1
-    );
   }
 
   render() {
     return (
       <>
-        <InventoryContainer style={{ display: 'flex' }}>
-          {this.divideInventory()}
-        </InventoryContainer>
+        <InventoryContainer>{this.generateInventory()}</InventoryContainer>
       </>
     );
   }
 }
 
-const ColumnContainer = styled.div`
-  & + & {
-    margin-left: -1px;
-  }
-`;
-
 const InventoryContainer = styled.div`
   display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  max-height: 11em;
+  justify-content: flex-start;
+  align-content: flex-start;
+  margin: 1em 0;
 `;
 
 export default Inventory;

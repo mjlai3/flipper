@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import Inventory from './components/Inventory';
 import Currency from './constants/Currency';
 import styled from 'styled-components';
-import findIndex from 'lodash.findindex';
+import lodash from 'lodash';
 
 class App extends React.PureComponent {
   constructor() {
@@ -15,27 +15,19 @@ class App extends React.PureComponent {
     };
   }
 
-  onCellClick(row, column) {
-    this.setState(
-      (prevState, props) => {
-        const newLockedCells = prevState.lockedCells.slice();
-        const lockedCellIndex = findIndex(prevState.lockedCells, {
-          row: row,
-          column: column
-        });
+  onCellClick(cellNumber) {
+    let index = lodash.indexOf(this.state.lockedCells, cellNumber);
+    let newLockedCells = this.state.lockedCells;
 
-        if (lockedCellIndex > -1) {
-          newLockedCells.splice(lockedCellIndex, 1);
-        } else {
-          newLockedCells.push({ row, column });
-        }
-
-        return {
-          lockedCells: newLockedCells
-        };
-      },
-      () => console.log(this.state.lockedCells)
-    );
+    if (index > -1) {
+      newLockedCells.splice(index, 1);
+    } else {
+      newLockedCells.push(cellNumber);
+    }
+    this.setState({
+      lockedCells: newLockedCells
+    });
+    console.log(this.state.lockedCells);
   }
 
   onAmountChange(event) {
@@ -56,7 +48,7 @@ class App extends React.PureComponent {
           stackSize={stackSize}
           amount={amount}
           lockedCells={lockedCells}
-          onCellClick={(row, column) => this.onCellClick(row, column)}
+          onCellClick={cellNumber => this.onCellClick(cellNumber)}
         />
         <AmountInput
           type="number"
@@ -68,9 +60,7 @@ class App extends React.PureComponent {
   }
 }
 
-const AmountInput = styled.input`
-  
-`;
+const AmountInput = styled.input``;
 
 const rootElement = document.getElementById('root');
 ReactDOM.render(<App />, rootElement);
