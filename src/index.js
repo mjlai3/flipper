@@ -17,7 +17,7 @@ class App extends React.PureComponent {
 
   onCellClick(cellNumber) {
     let index = lodash.indexOf(this.state.lockedCells, cellNumber);
-    let newLockedCells = this.state.lockedCells;
+    let newLockedCells = lodash.clone(this.state.lockedCells);
 
     if (index > -1) {
       newLockedCells.splice(index, 1);
@@ -27,16 +27,12 @@ class App extends React.PureComponent {
     this.setState({
       lockedCells: newLockedCells
     });
-    console.log(this.state.lockedCells);
   }
 
   onAmountChange(event) {
-    this.setState(
-      {
-        amount: event.target.value
-      },
-      () => console.log('amount: ' + this.state.amount)
-    );
+    this.setState({
+      amount: event.target.value
+    });
   }
 
   render() {

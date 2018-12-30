@@ -20,38 +20,40 @@ class Inventory extends React.PureComponent {
       cellNumber < this.state.inventorySize + 1;
       cellNumber++
     ) {
-      if (amount - stackSize > 0) {
-        inventory.push(
-          <InventoryCell
-            key={cellNumber}
-            cellNumber={cellNumber}
-            onCellClick={this.props.onCellClick}
-            stackSize={stackSize}
-          />
-        );
-        amount = amount - stackSize;
-      } else if (amount > 0) {
-        inventory.push(
-          <InventoryCell
-            key={cellNumber}
-            cellNumber={cellNumber}
-            onCellClick={this.props.onCellClick}
-            stackSize={amount}
-          />
-        );
-        amount = amount - stackSize;
-      } else {
-        inventory.push(
-          <InventoryCell
-            key={cellNumber}
-            cellNumber={cellNumber}
-            onCellClick={this.props.onCellClick}
-            stackSize={0}
-          />
-        );
+      inventory.push(
+        <InventoryCell
+          key={cellNumber}
+          cellNumber={cellNumber}
+          onCellClick={cellNumber => this.props.onCellClick(cellNumber)}
+          locked={this.isLocked(cellNumber)}
+          stackSize={this.getCellStackSize(amount, stackSize, cellNumber)}
+        />
+      );
+      if (
+        (amount - stackSize > 0 || amount > 0) &&
+        !this.isLocked(cellNumber)
+      ) {
+        amount -= stackSize;
       }
     }
     return inventory;
+  }
+
+  isLocked(cellNumber) {
+    return lodash.includes(this.props.lockedCells, cellNumber);
+  }
+
+  getCellStackSize(amount, stackSize, cellNumber) {
+    if (this.isLocked(cellNumber)) {
+      return 0;
+    }
+    if (amount - stackSize > 0) {
+      return stackSize;
+    }
+    if (amount > 0) {
+      return amount;
+    }
+    return 0;
   }
 
   render() {

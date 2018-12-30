@@ -1,14 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import lodash from 'lodash';
 
 class InventoryCell extends React.PureComponent {
-  constructor() {
-    super();
-    this.state = {
-      locked: false
-    };
-  }
-
   generateNumber() {
     const { stackSize } = this.props;
     if (stackSize) {
@@ -18,7 +12,12 @@ class InventoryCell extends React.PureComponent {
 
   render() {
     return (
-      <Cell onClick={() => this.props.onCellClick(this.props.cellNumber)}>
+      <Cell
+        locked={this.props.locked}
+        onClick={() => {
+          this.props.onCellClick(this.props.cellNumber);
+        }}
+      >
         {this.generateNumber()}
       </Cell>
     );
@@ -35,6 +34,7 @@ const Cell = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
+  background-color: ${props => (props.locked ? '#eee' : '#fff')};
 
   &:nth-child(n + 6) {
     margin-left: -1px;
