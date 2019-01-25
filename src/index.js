@@ -14,7 +14,7 @@ class App extends React.PureComponent {
     super();
     this.state = {
       amount: 75,
-      selectedCurrency: 'feather',
+      selectedCurrency: 'CurrencyRhoaFeather',
       lockedCells: []
     };
   }

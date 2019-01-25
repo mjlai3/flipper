@@ -1,161 +1,169 @@
 const Currency = {
-  feather: {
+  CurrencyRhoaFeather: {
     name: 'Albino Rhoa Feather',
     stackSize: 10
   },
-  apprenticeSeal: {
+  AncientOrb: {
+    name: 'Ancient Orb',
+    stackSize: 20
+  },
+  SealWhite: {
     name: "Apprentice Cartographer's Seal",
     stackSize: 10
   },
-  apprenticeSextant: {
+  AtlasRadiusWhite: {
     name: "Apprentice Cartographer's Sextant",
     stackSize: 10
   },
-  armourerScrap: {
+  CurrencyArmourQuality: {
     name: "Armourer's Scrap",
     stackSize: 40
   },
-  blacksmithWhetstone: {
+  CurrencyWeaponQuality: {
     name: "Blacksmith's Whetstone",
     stackSize: 20
   },
-  blessedOrb: {
+  CurrencyImplicitMod: {
     name: 'Blessed Orb',
     stackSize: 20
   },
-  blessingOfChayula: {
+  BreachUpgraderChaos: {
     name: 'Blessing of Chayula',
     stackSize: 10
   },
-  blessingOfEsh: {
+  BreachUpgraderLightning: {
     name: 'Blessing of Esh',
     stackSize: 10
   },
-  blessingOfTul: {
+  BreachUpgraderCold: {
     name: 'Blessing of Tul',
     stackSize: 10
   },
-  blessingOfUulNetol: {
+  BreachUpgraderPhysical: {
     name: 'Blessing of Uul-Netol',
     stackSize: 10
   },
-  blessingOfXoph: {
+  BreachUpgraderFire: {
     name: 'Blessing of Xoph',
     stackSize: 10
   },
-  cartographersChisel: {
+  CurrencyMapQuality: {
     name: "Cartographer's Chisel",
     stackSize: 20
   },
-  chaos: {
+  CurrencyRerollRare: {
     name: 'Chaos Orb',
     stackSize: 10
   },
-  chromatic: {
+  CurrencyRerollSocketColours: {
     name: 'Chromatic Orb',
     stackSize: 20
   },
-  divine: {
+  CurrencyModValues: {
     name: 'Divine Orb',
     stackSize: 10
   },
-  exalt: {
+  CurrencyAddModToRare: {
     name: 'Exalted Orb',
     stackSize: 10
   },
-  gcp: {
+  CurrencyGemQuality: {
     name: "Gemcutter's Prism",
     stackSize: 20
   },
-  glassblower: {
+  CurrencyFlaskQuality: {
     name: "Glassblower's Bauble",
     stackSize: 20
   },
-  jeweller: {
+  CurrencyRerollSocketNumbers: {
     name: "Jeweller's Orb",
     stackSize: 20
   },
-  journeymanSeal: {
+  SealYellow: {
     name: "Journeyman Cartographer's Seal",
     stackSize: 10
   },
-  journeymanSextant: {
+  AtlasRadiusYellow: {
     name: "Journeyman Cartographer's Sextant",
     stackSize: 10
   },
-  masterSeal: {
+  SealRed: {
     name: "Master Cartographer's Seal",
     stackSize: 10
   },
-  masterSextant: {
+  AtlasRadiusRed: {
     name: "Master Cartographer's Sextant",
     stackSize: 10
   },
-  mirror: {
+  CurrencyDuplicate: {
     name: 'Mirror of Kalandra',
     stackSize: 10
   },
-  alchemy: {
+  MirrorShard: {
+    name: 'Mirror Shard',
+    stackSize: 20
+  },
+  CurrencyUpgradeToRare: {
     name: 'Orb of Alchemy',
     stackSize: 10
   },
-  alteration: {
+  CurrencyRerollMagic: {
     name: 'Orb of Alteration',
     stackSize: 20
   },
-  annulment: {
+  AnnullOrb: {
     name: 'Orb of Annulment',
     stackSize: 20
   },
-  augmentation: {
+  CurrencyAddModToMagic: {
     name: 'Orb of Augmentation',
     stackSize: 20
   },
-  chance: {
+  CurrencyUpgradeRandomly: {
     name: 'Orb of Chance',
     stackSize: 20
   },
-  fusing: {
+  CurrencyRerollSocketLinks: {
     name: 'Orb of Fusing',
     stackSize: 20
   },
-  regret: {
+  CurrencyPassiveSkillRefund: {
     name: 'Orb of Regret',
     stackSize: 40
   },
-  scouring: {
+  CurrencyConvertToNormal: {
     name: 'Orb of Scouring',
     stackSize: 30
   },
-  transmutation: {
+  CurrencyUpgradeToMagic: {
     name: 'Orb of Transmutation',
     stackSize: 40
   },
-  portal: {
+  CurrencyPortal: {
     name: 'Portal Scroll',
     stackSize: 40
   },
-  regal: {
+  CurrencyUpgradeMagicToRare: {
     name: 'Regal Orb',
     stackSize: 10
   },
-  wisdom: {
+  CurrencyIdentification: {
     name: 'Scroll of Wisdom',
     stackSize: 40
   },
-  silverCoin: {
+  SilverObol: {
     name: 'Silver Coin',
     stackSize: 30
   },
-  stackedDeck: {
+  Deck: {
     name: 'Stacked Deck',
     stackSize: 10
   },
-  unshapingOrb: {
+  AtlasDowngrade: {
     name: 'Unshaping Orb',
     stackSize: 10
   },
-  vaal: {
+  CurrencyVaal: {
     name: 'Vaal Orb',
     stackSize: 10
   }
