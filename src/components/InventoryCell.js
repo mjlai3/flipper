@@ -1,28 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
-import lodash from 'lodash';
 
-class InventoryCell extends React.PureComponent {
-  generateNumber() {
-    const { stackSize } = this.props;
-    if (stackSize) {
-      return <Number>{stackSize}</Number>;
-    }
-  }
-
-  render() {
-    return (
-      <Cell
-        locked={this.props.locked}
-        onClick={() => {
-          this.props.onCellClick(this.props.cellNumber);
-        }}
-      >
-        {this.generateNumber()}
-      </Cell>
-    );
-  }
-}
+const InventoryCell = props => {
+  const {
+    stackSize,
+    locked,
+    onCellClick,
+    cellNumber,
+    selectedCurrency
+  } = props;
+  return (
+    <Cell
+      locked={locked}
+      onClick={() => {
+        onCellClick(cellNumber);
+      }}
+    >
+      {stackSize ? (
+        <>
+          <CurrencyIcon src={`./images/${selectedCurrency}.png`} />
+          <Number>{stackSize}</Number>
+        </>
+      ) : null}
+    </Cell>
+  );
+};
 
 const size = '2em';
 
@@ -35,6 +37,7 @@ const Cell = styled.div`
   justify-content: center;
   position: relative;
   background-color: ${props => (props.locked ? '#eee' : '#fff')};
+  cursor: default;
 
   &:nth-child(n + 6) {
     margin-left: -1px;
@@ -48,7 +51,14 @@ const Cell = styled.div`
 const Number = styled.span`
   position: absolute;
   top: 0.25em;
-  right: 0.25em;
+  left: 0.25em;
+  font-size: 0.5em;
+`;
+
+const CurrencyIcon = styled.img`
+  /* width: ${size}; */
+  max-width: 100%;
+  width: 90%;
 `;
 
 export default InventoryCell;

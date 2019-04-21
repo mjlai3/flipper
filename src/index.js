@@ -67,6 +67,7 @@ class App extends React.PureComponent {
           amount={amount}
           lockedCells={lockedCells}
           onCellClick={cellNumber => this.onCellClick(cellNumber)}
+          selectedCurrency={this.state.selectedCurrency}
         />
         <AmountInput
           defaultValue={this.state.amount}

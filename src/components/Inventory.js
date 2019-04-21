@@ -27,6 +27,7 @@ class Inventory extends React.PureComponent {
           onCellClick={cellNumber => this.props.onCellClick(cellNumber)}
           locked={this.isLocked(cellNumber)}
           stackSize={this.getCellStackSize(amount, stackSize, cellNumber)}
+          selectedCurrency={this.props.selectedCurrency}
         />
       );
       if (
