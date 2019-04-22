@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import lodash from 'lodash';
 import { Select, InputNumber } from 'antd';
 import 'antd/dist/antd.css';
+import './index.css';
 
 const Option = Select.Option;
 
@@ -69,30 +70,37 @@ class App extends React.PureComponent {
           onCellClick={cellNumber => this.onCellClick(cellNumber)}
           selectedCurrency={this.state.selectedCurrency}
         />
-        <AmountInput
-          defaultValue={this.state.amount}
-          onChange={event => this.onAmountChange(event)}
-        />
-        <Select
-          showSearch
-          value={this.state.selectedCurrency}
-          style={{ width: 200 }}
-          placeholder="Select currency"
-          optionFilterProp="children"
-          onChange={value => this.handleChange(value)}
-          filterOption={(input, option) =>
-            option.props.children.toLowerCase().indexOf(input.toLowerCase()) >=
-            0
-          }
-        >
-          {this.generateSelectOptions()}
-        </Select>
+        <Controls>
+          <InputNumber
+            defaultValue={this.state.amount}
+            onChange={event => this.onAmountChange(event)}
+          />
+          <Select
+            showSearch
+            value={this.state.selectedCurrency}
+            style={{ width: 200 }}
+            placeholder="Select currency"
+            optionFilterProp="children"
+            onChange={value => this.handleChange(value)}
+            filterOption={(input, option) =>
+              option.props.children
+                .toLowerCase()
+                .indexOf(input.toLowerCase()) >= 0
+            }
+          >
+            {this.generateSelectOptions()}
+          </Select>
+        </Controls>
       </>
     );
   }
 }
 
-const AmountInput = styled(InputNumber)``;
+const Controls = styled.div`
+  > * + * {
+    margin-left: 0.5em !important;
+  }
+`;
 
 const rootElement = document.getElementById('root');
 ReactDOM.render(<App />, rootElement);

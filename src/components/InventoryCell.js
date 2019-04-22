@@ -7,7 +7,8 @@ const InventoryCell = props => {
     locked,
     onCellClick,
     cellNumber,
-    selectedCurrency
+    selectedCurrency,
+    inventoryCellSize
   } = props;
   return (
     <Cell
@@ -15,6 +16,7 @@ const InventoryCell = props => {
       onClick={() => {
         onCellClick(cellNumber);
       }}
+      inventoryCellSize={inventoryCellSize}
     >
       {stackSize ? (
         <>
@@ -26,17 +28,18 @@ const InventoryCell = props => {
   );
 };
 
-const size = '2em';
-
 const Cell = styled.div`
-  height: ${size};
-  width: ${size};
-  border: 1px solid black;
+  height: ${props => props.inventoryCellSize}em;
+  width: ${props => props.inventoryCellSize}em;
+  border: 1px solid #644015;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  background-color: ${props => (props.locked ? '#eee' : '#fff')};
+  background: ${props =>
+    props.locked
+      ? 'repeating-linear-gradient(45deg, #606dbc, #606dbc 5px, #465298 5px, #465298 10px)'
+      : '#080909'};
   cursor: default;
 
   &:nth-child(n + 6) {
@@ -50,13 +53,13 @@ const Cell = styled.div`
 
 const Number = styled.span`
   position: absolute;
-  top: 0.25em;
-  left: 0.25em;
+  top: 0;
+  left: 0;
   font-size: 0.5em;
+  color: #fff;
 `;
 
 const CurrencyIcon = styled.img`
-  /* width: ${size}; */
   max-width: 100%;
   width: 90%;
 `;

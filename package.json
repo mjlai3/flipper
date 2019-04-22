@@ -9,6 +9,7 @@
     "babel-plugin-transform-es2015-modules-commonjs": "6.26.2",
     "babel-plugin-transform-object-rest-spread": "6.26.0",
     "lodash": "4.17.11",
+    "polished": "3.2.0",
     "react": "16.5.2",
     "react-dom": "16.5.2",
     "react-scripts": "2.0.3",

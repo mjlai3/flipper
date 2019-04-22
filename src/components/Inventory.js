@@ -7,7 +7,9 @@ class Inventory extends React.PureComponent {
   constructor() {
     super();
     this.state = {
-      inventorySize: 60
+      inventorySize: 60,
+      inventoryHeight: 11,
+      inventoryCellSize: 2
     };
   }
 
@@ -28,6 +30,7 @@ class Inventory extends React.PureComponent {
           locked={this.isLocked(cellNumber)}
           stackSize={this.getCellStackSize(amount, stackSize, cellNumber)}
           selectedCurrency={this.props.selectedCurrency}
+          inventoryCellSize={this.state.inventoryCellSize}
         />
       );
       if (
@@ -58,22 +61,40 @@ class Inventory extends React.PureComponent {
   }
 
   render() {
+    const { inventoryCellSize, inventoryHeight } = this.state;
     return (
-      <>
-        <InventoryContainer>{this.generateInventory()}</InventoryContainer>
-      </>
+      <Container>
+        <InventoryContainer
+          inventoryCellSize={inventoryCellSize}
+          inventoryHeight={inventoryHeight}
+        >
+          {this.generateInventory()}
+        </InventoryContainer>
+      </Container>
     );
   }
 }
+
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25em 1em;
+  border-radius: 3px;
+  margin: 0 0 1em 0;
+  background: #080909;
+  background: #eee;
+`;
 
 const InventoryContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  max-height: 11em;
+  max-height: ${props => props.inventoryHeight}em;
   justify-content: flex-start;
   align-content: flex-start;
   margin: 1em 0;
+  width: ${props => props.inventoryCellSize * 12}em;
 `;
 
 export default Inventory;
